@@ -2,10 +2,7 @@ import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,11 +64,25 @@ public class Wordle {
                 textField.setDocument(new JTextFieldLimit(1));
                 textField.setHorizontalAlignment(JTextField.CENTER);
                 textField.setFont(new Font("Monospaced", Font.BOLD, 30));
+                //textField.setRequestFocusEnabled();
+                textField.addKeyListener(new KeyAdapter(){
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        if(Character.isLetter(e.getKeyChar())){
+                            textField.setText(Character.toString(e.getKeyChar()).toUpperCase());
+                            textField.transferFocus();
+                        }
 
+                        e.consume();
+                    }
+
+                });
+                /*
                 textField.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
                         if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                            //textField.addActionListener(listener);
                             //stuff for enter
                             //JFrameFunctions jf = new JFrameFunctions(frame);
                             //jf.getCompleteWordle();
@@ -88,6 +99,9 @@ public class Wordle {
                     }
                 });
 
+                 */
+
+
                 tempTextList.add(textField);
                 pRow.add(textField);
 
@@ -102,9 +116,7 @@ public class Wordle {
 
         return wordle;
     }
-    public void monitorWordle(){
 
-    }
     public void changeWordle(String newWord){
         wordle = newWord;
     }

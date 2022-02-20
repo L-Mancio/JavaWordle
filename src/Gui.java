@@ -44,6 +44,7 @@ class Gui{
         }
 
 
+
         frame.getContentPane().add(wordlePanel, BorderLayout.CENTER);
         frame.getContentPane().add(keyboard, BorderLayout.SOUTH);
         frame.getContentPane().add(mb, BorderLayout.NORTH);

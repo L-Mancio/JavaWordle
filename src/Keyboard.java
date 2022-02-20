@@ -42,9 +42,12 @@ public class Keyboard {
                 JButton tempButton;
                 if(qwertyRows[row][col].equals("Backspace")){
                     tempButton = new JButton("<");
+                    //tempButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "backspace");
+                    //tempButton.getActionMap().put("backspace", (Action) KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0));
                 }
                 else if(qwertyRows[row][col].equals("Enter")){
                     tempButton = new JButton("Enter");
+                    frame.getRootPane().setDefaultButton(tempButton);
                 }
                 else {
                     tempButton = new JButton(qwertyRows[row][col]);

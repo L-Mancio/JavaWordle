@@ -23,21 +23,20 @@ class Gui{
         mb.add(m2);
 
 
-        Dictionary d = new Dictionary("PATH TO DICTIONARY", "PATH TO NOUNLIST");
-        int wordleLen = 5; //could make this so that it can be changed and also changes gui accordingly
-        Wordle w = new Wordle(6, 5, d.getRandomWord(5), frame);
+        Dictionary d = new Dictionary("", "");
+        Wordle wordle = new Wordle(6, 5, d.getRandomWord(5), frame);
         Keyboard k = new Keyboard(frame);
 
-        System.out.println("Word Chosen: " + w.wordle);
+        System.out.println("Word Chosen: " + wordle.wordle);
 
         //create wordle boxes
-        JPanel wordlePanel = w.generateWordle();
+        JPanel wordlePanel = wordle.generateWordle();
 
         //create panel for keyboard buttons
         JPanel keyboard = k.generateKeyboard();
 
         // add listener to buttons to write on textfields on button press
-        MyActionListener listener = new MyActionListener(frame, wordlePanel, w, wordleLen);
+        MyActionListener listener = new MyActionListener(frame, wordle);
         for(JButton jb: k.keyboardButtons) {
             jb.addActionListener(listener);
         }

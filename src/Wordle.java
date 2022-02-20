@@ -13,12 +13,14 @@ import java.util.HashSet;
 public class Wordle {
     protected int rows;
     protected int columns;
-    protected HashMap<String, String> dictionary;
     protected String wordle;
+    protected JFrame frame;
+
+    protected HashMap<String, String> dictionary;
     protected HashSet<Character> wordleChars;
     protected HashMap<Integer, ArrayList<JTextField>> textFields;
     protected HashMap<Integer, JPanel> textPanels;
-    protected JFrame frame;
+
 
 
     public Wordle(int rows, int columns, String wordle, JFrame frame){
@@ -118,7 +120,6 @@ public class Wordle {
 
             textPanels.put(row, pRow);
             textFields.put(row, tempTextList);
-            tempTextList.clear();
             wordle.add(pRow, c);
         }
 

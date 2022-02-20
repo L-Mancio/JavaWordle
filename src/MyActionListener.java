@@ -16,6 +16,7 @@ public class MyActionListener implements ActionListener {
     protected int row = 0;
     protected ArrayList<JTextField> enabledTextFields;
 
+    JPanel messagePanel;
     public MyActionListener(JFrame frame, Wordle wordle, Dictionary dictionary) {
         this.frame = frame;
         this.wordle = wordle;
@@ -25,45 +26,39 @@ public class MyActionListener implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         String cmd = evt.getActionCommand();
         JTextField currTf = (JTextField) frame.getFocusOwner();
-        System.out.println(cmd);
+        //System.out.println(cmd);
         if(currTf.isFocusable()){
             if(cmd.equals("Enter")){
-                //ArrayList<JTextField> enabledTextFields = new ArrayList<>();
                 String wordleGuess = getWordleGuess();
-                System.out.println(wordleGuess);
+                System.out.println("You guessed: " + wordleGuess);
                 assert wordleGuess != null;
                 int guessLen = wordleGuess.length();
                 //enabledTextFields =
 
                 if(guessLen == wordle.wordle.length()){
-                    if(wordleGuess.equals(wordle.wordle)){
-                        correctGuess(wordle.textFields.get(row), frame);
-                        //disableRemFields(row+1);
+                    if(wordle.isCorrectWordle(wordleGuess)){
+                        displayResultPanel(wordle.textFields.get(row),"You Win", frame, messagePanel);
                         restartGame(wordle, dictionary);
                         row = 0;
-                        //restart game
                     }
                     else{
                         incorrectGuess(wordle.textFields.get(row), wordle);
                         if(row == wordle.rows - 1){
-                            wrongGuess(frame);
-                            //wrong guess() bottone rosso
+                            displayResultPanel(wordle.textFields.get(row),"You Lose", frame, messagePanel);
                             restartGame(wordle, dictionary);
                             row = 0;
-                            //create red restart button
                         }
                         else{
                             enableFields(wordle.textFields.get(row+1));
-                            row+=1;
+                            row += 1;
                         }
 
                     }
-                    //row+=1;
                     currTf.transferFocus();
-
                 }
                 else{
-                    incompleteGuess(enabledTextFields);
+                    incompleteGuess(wordle.textFields.get(row));
+                    displayResultPanel(wordle.textFields.get(row),"Incomplete", frame, messagePanel);
                     //create message panel
                 }
 
@@ -112,21 +107,43 @@ public class MyActionListener implements ActionListener {
         }
     }
 
-    public static void correctGuess(ArrayList<JTextField> jTextFields, JFrame frame){
+    public static void displayResultPanel(ArrayList<JTextField> jTextFields, String messageResult, JFrame frame, JPanel resultPanel){
+        try{
+            frame.getContentPane().remove(resultPanel);
+
+        }catch(Exception ignored){
+            ;
+        }
+
+        for(JTextField jtf: jTextFields){
+            if(messageResult.equals("You Win")){
+                jtf.setBackground(Color.GREEN);
+                jtf.setEnabled(false);
+            }
+            else if(messageResult.equals("You Lose")){
+                jtf.setBackground(Color.GRAY);
+                jtf.setEnabled(false);
+            }
+
+        }
+
+        Message message = new Message(messageResult);
+        resultPanel = message.generateMessage();
+
+        frame.getContentPane().add(resultPanel, BorderLayout.AFTER_LINE_ENDS);
+
+    }
+    public static void wrongGuess(ArrayList<JTextField> jTextFields, JFrame frame, JPanel correct, JPanel wrong, JPanel incomplete){
         for(JTextField jtf: jTextFields){
             jtf.setBackground(Color.GREEN);
             jtf.setEnabled(false);
         }
 
-        Message correctMessage = new Message("You Win");
-        JPanel correctMessagePanel = correctMessage.generateMessage();
-        frame.getContentPane().add(correctMessagePanel, BorderLayout.AFTER_LINE_ENDS);
-
-    }
-    public static void wrongGuess(JFrame frame){
         Message correctMessage = new Message("You Lose");
-        JPanel correctMessagePanel = correctMessage.generateMessage();
-        frame.getContentPane().add(correctMessagePanel, BorderLayout.AFTER_LINE_ENDS);
+        correct = correctMessage.generateMessage();
+        frame.getContentPane().remove(wrong);
+        frame.getContentPane().remove(incomplete);
+        frame.getContentPane().add(correct, BorderLayout.AFTER_LINE_ENDS);
 
     }
     public static void incorrectGuess(ArrayList<JTextField> jTextFields, Wordle wordle){

@@ -23,8 +23,9 @@ class Gui{
         mb.add(m2);
 
 
-        Dictionary d = new Dictionary("C:\\Users\\lucam\\Desktop\\Projects\\Wordle\\dictionary2.json", "C:\\Users\\lucam\\Desktop\\Projects\\Wordle\\nounlist.txt");
-        int wordleLen = 5; //could make this so that it can be changed and also changes gui accordingly
+        Dictionary d = new Dictionary("S:\\Github Projects\\Wordle\\dictionary.json", "S:\\Github Projects\\Wordle\\nounlist.txt");
+
+
         Wordle wordle = new Wordle(6, 5, d.getRandomWord(5), frame);
         Keyboard k = new Keyboard(frame);
 

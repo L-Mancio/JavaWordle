@@ -70,9 +70,5 @@ public class Dictionary {
         return validWord.toUpperCase();
 
     }
-    public static void main(String[] args) throws IOException {
 
-        Dictionary d = new Dictionary("S:\\Github Projects\\Wordle\\dictionary.json", "S:\\Github Projects\\Wordle\\nounlist.txt");
-        System.out.println(d.getRandomWord(5));
-    }
 }

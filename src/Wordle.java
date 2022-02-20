@@ -40,31 +40,6 @@ public class Wordle {
     }
 
 
-    public ArrayList<WordleBool> getDifferences(String userGuess) throws Exception {
-
-        //boolean[] letterPosition = new boolean[this.wordle.length()];
-        ArrayList<WordleBool> letterPosition = new ArrayList<>();
-        char[] wordleArr = this.wordle.toCharArray();
-        char[] userGuessArr = userGuess.toCharArray();
-
-
-        for(int i = 0; i < this.wordle.length(); i++){
-            char correctChar = wordleArr[i];
-            char  userGuessChar = userGuessArr[i];
-
-            if(correctChar == userGuessChar){
-                letterPosition.add(new WordleBool("True"));
-            }
-            else if(wordleChars.contains(userGuessArr[i])){
-                letterPosition.add(new WordleBool("Partly"));
-            }
-            else letterPosition.add(new WordleBool("False"));
-        }
-
-        return letterPosition;
-    }
-
-
 
     public JPanel generateWordle(){
         textFields = new HashMap<>();

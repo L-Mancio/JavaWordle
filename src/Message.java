@@ -11,7 +11,7 @@ public class Message {
     public JPanel generateMessage(){
         JPanel messagePanel = new JPanel();
         JButton message = new JButton(this.message);
-        message.setBackground(Color.blue);
+        message.setBackground(Color.GREEN);
         messagePanel.add(message);
 
         return messagePanel;

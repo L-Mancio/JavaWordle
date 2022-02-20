@@ -11,14 +11,15 @@ import java.util.Set;
 public class MyActionListener implements ActionListener {
     protected JFrame frame;
     protected Wordle wordle;
+    protected Dictionary dictionary;
 
     protected int row = 0;
     protected ArrayList<JTextField> enabledTextFields;
 
-    public MyActionListener(JFrame frame, Wordle wordle) {
+    public MyActionListener(JFrame frame, Wordle wordle, Dictionary dictionary) {
         this.frame = frame;
         this.wordle = wordle;
-
+        this.dictionary = dictionary;
     }
 
     public void actionPerformed(ActionEvent evt) {
@@ -32,24 +33,29 @@ public class MyActionListener implements ActionListener {
                 System.out.println(wordleGuess);
                 assert wordleGuess != null;
                 int guessLen = wordleGuess.length();
-                enabledTextFields = wordle.textFields.get(row);
+                //enabledTextFields =
 
                 if(guessLen == wordle.wordle.length()){
                     if(wordleGuess.equals(wordle.wordle)){
-                        correctGuess(enabledTextFields, frame);
-                        disableRemFields(row+1);
+                        correctGuess(wordle.textFields.get(row), frame);
+                        //disableRemFields(row+1);
+                        restartGame(wordle, dictionary);
                         //restart game
                     }
                     else{
-                        incorrectGuess(enabledTextFields, wordle);
+                        incorrectGuess(wordle.textFields.get(row), wordle);
                         if(row == wordle.rows - 1){
+                            restartGame(wordle, dictionary);
+
                             //create red restart button
                         }
-                        enableNextFields();
-                        currTf.transferFocus();
+                        else{
+                            enableFields(wordle.textFields.get(row+1));
+                        }
 
                     }
                     row+=1;
+                    currTf.transferFocus();
 
                 }
                 else{
@@ -84,9 +90,11 @@ public class MyActionListener implements ActionListener {
         return wordleString;
     }
 
-    public void enableNextFields(){
-        for(JTextField jtf: wordle.textFields.get(row+1)){
+    public void enableFields(ArrayList<JTextField> toEnable){
+        for(JTextField jtf: toEnable){
             jtf.setEnabled(true);
+            jtf.setBackground(Color.WHITE);
+            jtf.setText("");
         }
 
     }
@@ -95,6 +103,7 @@ public class MyActionListener implements ActionListener {
             for(JTextField jtf: wordle.textFields.get(i)){
                 jtf.setBackground(Color.GRAY);
                 jtf.setEnabled(false);
+                jtf.setText("");
             }
         }
     }
@@ -142,5 +151,18 @@ public class MyActionListener implements ActionListener {
             jtf.setBackground(Color.WHITE);
 
         }
+    }
+    public void restartGame(Wordle wordle, Dictionary dictionary){
+        //use dictionary to get new word
+        //set change wordle string of wordle object with new random word
+        //remove text and disable all jtextfields except first
+
+        String newWord = dictionary.getRandomWord(wordle.wordle.length());
+        System.out.println(newWord);
+        wordle.changeWordle(newWord);
+        enableFields(wordle.textFields.get(0));
+        disableRemFields(1);
+        //wordle.textFields.get(0).get(0).requestFocus();
+
     }
 }

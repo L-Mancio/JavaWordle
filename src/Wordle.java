@@ -130,6 +130,9 @@ public class Wordle {
     public void monitorWordle(){
 
     }
+    public void changeWordle(String newWord){
+        wordle = newWord;
+    }
 
 
 

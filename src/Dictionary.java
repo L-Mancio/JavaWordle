@@ -67,7 +67,7 @@ public class Dictionary {
             validWord = validWords.get(randInt);
         }
         */
-        return validWord;
+        return validWord.toUpperCase();
 
     }
     public static void main(String[] args) throws IOException {

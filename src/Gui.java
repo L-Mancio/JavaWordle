@@ -23,7 +23,8 @@ class Gui{
         mb.add(m2);
 
 
-        Dictionary d = new Dictionary("", "");
+        Dictionary d = new Dictionary("C:\\Users\\lucam\\Desktop\\Projects\\Wordle\\dictionary2.json", "C:\\Users\\lucam\\Desktop\\Projects\\Wordle\\nounlist.txt");
+        int wordleLen = 5; //could make this so that it can be changed and also changes gui accordingly
         Wordle wordle = new Wordle(6, 5, d.getRandomWord(5), frame);
         Keyboard k = new Keyboard(frame);
 
@@ -36,10 +37,11 @@ class Gui{
         JPanel keyboard = k.generateKeyboard();
 
         // add listener to buttons to write on textfields on button press
-        MyActionListener listener = new MyActionListener(frame, wordle);
+        MyActionListener listener = new MyActionListener(frame, wordle, d);
         for(JButton jb: k.keyboardButtons) {
             jb.addActionListener(listener);
         }
+
 
 
 

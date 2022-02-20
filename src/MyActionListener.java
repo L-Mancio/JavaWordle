@@ -24,11 +24,12 @@ public class MyActionListener implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         String cmd = evt.getActionCommand();
         JTextField currTf = (JTextField) frame.getFocusOwner();
+        System.out.println(cmd);
         if(currTf.isFocusable()){
             if(cmd.equals("Enter")){
                 //ArrayList<JTextField> enabledTextFields = new ArrayList<>();
                 String wordleGuess = getWordleGuess();
-
+                System.out.println(wordleGuess);
                 assert wordleGuess != null;
                 int guessLen = wordleGuess.length();
                 enabledTextFields = wordle.textFields.get(row);
@@ -46,7 +47,9 @@ public class MyActionListener implements ActionListener {
                         }
                         enableNextFields();
                         currTf.transferFocus();
+
                     }
+                    row+=1;
 
                 }
                 else{
@@ -63,6 +66,7 @@ public class MyActionListener implements ActionListener {
                 currTf.setText(cmd);
                 currTf.transferFocus();
             }
+
 
         }
 

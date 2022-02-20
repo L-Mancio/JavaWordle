@@ -40,21 +40,25 @@ public class MyActionListener implements ActionListener {
                         correctGuess(wordle.textFields.get(row), frame);
                         //disableRemFields(row+1);
                         restartGame(wordle, dictionary);
+                        row = 0;
                         //restart game
                     }
                     else{
                         incorrectGuess(wordle.textFields.get(row), wordle);
                         if(row == wordle.rows - 1){
+                            wrongGuess(frame);
+                            //wrong guess() bottone rosso
                             restartGame(wordle, dictionary);
-
+                            row = 0;
                             //create red restart button
                         }
                         else{
                             enableFields(wordle.textFields.get(row+1));
+                            row+=1;
                         }
 
                     }
-                    row+=1;
+                    //row+=1;
                     currTf.transferFocus();
 
                 }
@@ -119,6 +123,12 @@ public class MyActionListener implements ActionListener {
         frame.getContentPane().add(correctMessagePanel, BorderLayout.AFTER_LINE_ENDS);
 
     }
+    public static void wrongGuess(JFrame frame){
+        Message correctMessage = new Message("You Lose");
+        JPanel correctMessagePanel = correctMessage.generateMessage();
+        frame.getContentPane().add(correctMessagePanel, BorderLayout.AFTER_LINE_ENDS);
+
+    }
     public static void incorrectGuess(ArrayList<JTextField> jTextFields, Wordle wordle){
 
         for(int i=0; i<wordle.wordle.length(); i++){
@@ -162,7 +172,7 @@ public class MyActionListener implements ActionListener {
         wordle.changeWordle(newWord);
         enableFields(wordle.textFields.get(0));
         disableRemFields(1);
-        //wordle.textFields.get(0).get(0).requestFocus();
+        wordle.textFields.get(0).get(0).requestFocus();
 
     }
 }

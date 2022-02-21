@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,12 +37,6 @@ public class GuiWordleActions {
     }
 
     public static void displayResultPanel(ArrayList<JTextField> jTextFields, String messageResult, JFrame frame, JPanel resultPanel){
-        try{
-            frame.getContentPane().remove(resultPanel);
-
-        }catch(Exception ignored){
-            ;
-        }
 
         for(JTextField jtf: jTextFields){
             if(messageResult.equals("You Win")){
@@ -57,7 +53,22 @@ public class GuiWordleActions {
         Message message = new Message(messageResult);
         resultPanel = message.generateMessage();
 
-        frame.getContentPane().add(resultPanel, BorderLayout.AFTER_LINE_ENDS);
+
+        JPanel finalResultPanel = resultPanel;
+        Timer timer = new Timer(2500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.remove(finalResultPanel);
+                //SwingUtilities.windowForComponent(resultPanel).dispose();
+                SwingUtilities.updateComponentTreeUI(frame);
+            }
+        });
+
+        frame.getContentPane().add(resultPanel, BorderLayout.LINE_START);
+        SwingUtilities.updateComponentTreeUI(frame);
+        timer.start();
+
+
 
     }
     public static void wrongGuess(ArrayList<JTextField> jTextFields, JFrame frame, JPanel correct, JPanel wrong, JPanel incomplete){
@@ -118,5 +129,12 @@ public class GuiWordleActions {
         disableRemFields(wordle.textFields, wordle.rows, 1);
         wordle.textFields.get(0).get(0).requestFocus();
 
+    }
+    public static void guiGreen(Wordle wordle){
+        for(int i=0; i<wordle.rows; i++){
+            for(JTextField jtf: wordle.textFields.get(i)){
+                jtf.setBackground(Color.GREEN);
+            }
+        }
     }
 }

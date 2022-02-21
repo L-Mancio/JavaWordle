@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Array;
@@ -22,7 +23,6 @@ public class MyActionListener implements ActionListener  {
     public void actionPerformed(ActionEvent evt) {
         String cmd = evt.getActionCommand();
         JTextField currTf = (JTextField) frame.getFocusOwner();
-        //System.out.println(cmd);
 
         if(currTf.isFocusable()){
             if(cmd.equals("Enter") )

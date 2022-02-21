@@ -42,6 +42,8 @@ public class Keyboard {
                 JButton tempButton;
                 if(qwertyRows[row][col].equals("Backspace")){
                     tempButton = new JButton("<");
+                    tempButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "pressed");
+                    tempButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0, true), "released");
                     //tempButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "backspace");
                     //tempButton.getActionMap().put("backspace", (Action) KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0));
                 }

@@ -5,6 +5,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 class Gui{
@@ -13,7 +15,7 @@ class Gui{
         //create frame
         JFrame frame = new JFrame("Wordle");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700,800);
+        frame.setSize(700,1000);
 
         //Creating the MenuBar and adding components
         JMenuBar mb = new JMenuBar();
@@ -22,8 +24,14 @@ class Gui{
         mb.add(m1);
         mb.add(m2);
 
-
-        Dictionary d = new Dictionary("S:\\Github Projects\\Wordle\\dictionary.json", "S:\\Github Projects\\Wordle\\nounlist.txt");
+        //System.out.println(Gui.class.getResourceAsStream("dictionary.json"));
+        String dictionaryPath = System.getProperty("user.dir") + "\\dictionary.json";
+        System.out.println(dictionaryPath);
+        //String dictionaryPath = FileSystems.getDefault().getPath("user.dir").toRealPath().toString();
+        String nounPath = FileSystems.getDefault().getPath("nounlist.txt").toRealPath().toString();
+        //String dictionaryPath = Gui.class.getResourceAsStream("dictionary.json").toString();
+        //System.out.println(dictionaryPath);
+        Dictionary d = new Dictionary(dictionaryPath, nounPath);
 
 
         Wordle wordle = new Wordle(6, 5, d.getRandomWord(5), frame);

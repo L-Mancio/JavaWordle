@@ -64,43 +64,26 @@ public class Wordle {
                 textField.setDocument(new JTextFieldLimit(1));
                 textField.setHorizontalAlignment(JTextField.CENTER);
                 textField.setFont(new Font("Monospaced", Font.BOLD, 30));
-                //textField.setRequestFocusEnabled();
+
                 textField.addKeyListener(new KeyAdapter(){
                     @Override
                     public void keyTyped(KeyEvent e) {
                         if(Character.isLetter(e.getKeyChar())){
                             textField.setText(Character.toString(e.getKeyChar()).toUpperCase());
                             textField.transferFocus();
+                            e.consume();
                         }
-
-                        e.consume();
                     }
-
-                });
-                /*
-                textField.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
-                        if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                            //textField.addActionListener(listener);
-                            //stuff for enter
-                            //JFrameFunctions jf = new JFrameFunctions(frame);
-                            //jf.getCompleteWordle();
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                        {
-                            textField.setText("");
-                            textField.transferFocusBackward();
-                        }
-                        else{
-                            textField.transferFocus();
-                        }
-                        e.consume();
-                    }
+                         if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+                         {
+                             textField.setText("");
+                             textField.transferFocusBackward();
+                             e.consume();
+                         }
+                     }
                 });
-
-                 */
-
 
                 tempTextList.add(textField);
                 pRow.add(textField);

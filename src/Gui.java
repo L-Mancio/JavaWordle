@@ -38,7 +38,7 @@ class Gui{
         Keyboard k = new Keyboard(frame);
 
         System.out.println("Word Chosen: " + wordle.wordle);
-        System.out.println("Meaning: " + d.dictionary.get("cach".toUpperCase()));
+        //System.out.println("Meaning: " + d.dictionary.get("cach".toUpperCase()));
 
         //create wordle boxes
         JPanel wordlePanel = wordle.generateWordle();

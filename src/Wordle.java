@@ -101,7 +101,14 @@ public class Wordle {
     }
 
     public void changeWordle(String newWord){
+
+        HashSet<Character> wordleCharSet = new HashSet<>();
         wordle = newWord;
+        for(char c : wordle.toCharArray()){
+            wordleCharSet.add(c);
+        }
+        wordleChars = wordleCharSet;
+
     }
 
 

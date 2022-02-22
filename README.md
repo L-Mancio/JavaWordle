@@ -3,9 +3,9 @@ A Java implementation of the popular Wordle game by NYTimes https://www.nytimes.
 
 Work In Progress
 
-#execute \
-Run Jar in out/artifacts/Wordle.jar \
-Dictionary and nounlist jsons should be in the same directory as the jar file
+#execute 
+Compile Gui.java file 
+
 
 Can use your own dictionary as long as the keys represent the words
 
